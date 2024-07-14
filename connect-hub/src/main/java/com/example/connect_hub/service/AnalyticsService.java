@@ -40,8 +40,6 @@ public class AnalyticsService {
     @Autowired
     private GeoLocationService geoLocationService;
 
-    // ... existing methods ...
-
     public void recordPageView(String userId, String ipAddress, String userAgent) {
         Analytics analytics = new Analytics();
         analytics.setUserId(userId);
