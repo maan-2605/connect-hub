@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sign Up - ConnectHub</title>
+    <link rel="stylesheet" th:href="@{/css/signup.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw6clwPgHkByYM4I7im80j0wGiUR2spKNs5ABHkltYP5ZxB1W6+ng==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<div class="container">
+    <h1>Sign Up</h1>
+    <form th:action="@{/signup}" th:object="${user}" method="post">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" th:field="*{username}" required>
+            <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" th:field="*{email}" required>
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" th:field="*{password}" required>
+            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn">Sign Up</button>
+        </div>
+    </form>
+    <p>Already have an account? <a th:href="@{/login}">Log in</a></p>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-5YAH0q+4X2q1tDkH6Yq8YeopYJGLYPcS4lg/11j/RxWxyvlO3mfamyg1RI5djfwJMeOgO0/uWg+dEy9+hb9G7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/js/signup.js"></script>
+</body>
+</html>

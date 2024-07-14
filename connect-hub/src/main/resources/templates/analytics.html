@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Analytics - LinkTree Clone</title>
+    <link rel="stylesheet" th:href="@{/css/analytics.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Your Analytics</h1>
+    <p>Total Page Views: <span th:text="${pageViews}"></span></p>
+    <h2>Link Clicks</h2>
+    <ul>
+        <li th:each="linkData : ${linkClicksData}">
+            <span th:text="${linkData.linkTitle}"></span>:
+            <span th:text="${linkData.clicks}"></span> clicks
+        </li>
+    </ul>
+    <a th:href="@{/profile}">Back to Profile</a>
+</div>
+</body>
+</html>

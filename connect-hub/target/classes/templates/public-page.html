@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${user.username} + '\'s LinkTree'"></title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style th:inline="css">
+        body {
+            background-color: [(${user.backgroundColor})];
+            color: [(${user.textColor})];
+            font-family: [(${user.fontFamily})], sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow: hidden; /* Prevent horizontal scroll */
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 800px; /* Increase maximum width for better layout */
+            width: 100%;
+            opacity: 0; /* Start with opacity 0 for fade-in animation */
+            animation: fadeIn 0.5s forwards;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        .profile-picture {
+            margin-bottom: 20px;
+            text-align: center; /* Center profile picture horizontally */
+        }
+        .profile-picture img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid #fff; /* Add a white border around the profile picture */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+        }
+        .container.public-page {
+            position: relative;
+            z-index: 2;
+        }
+        .container h1 {
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        .bio {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            text-align: center; /* Align bio text to the left */
+        }
+        .links-container {
+            margin-top: 20px; /* Add spacing above links */
+            text-align: center; /* Align links to the left */
+        }
+        .link-button {
+            display: block; /* Display links in a vertical list */
+            padding: 10px 20px;
+            background-color: [(${user.buttonColor})];
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+            margin-bottom: 10px;
+        }
+        .link-button:hover {
+            background-color: darken([(${user.buttonColor})], 10%); /* Darken button color on hover */
+        }
+    </style>
+</head>
+<body>
+<div class="container public-page">
+    <div class="profile-picture">
+        <img th:if="${user.profilePictureUrl}" th:src="${user.profilePictureUrl}" alt="Profile Picture">
+    </div>
+    <h1 th:text="${user.username}"></h1>
+    <p class="bio" th:text="${user.bio}"></p>
+
+    <div class="links-container">
+        <a th:each="link : ${links}"
+           th:href="@{'/l/' + ${link.id}}"
+           th:text="${link.title}"
+           class="link-button"
+           target="_blank"
+           rel="noopener noreferrer">
+        </a>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        animateContainer();
+    });
+
+    function animateContainer() {
+        var container = document.querySelector('.container');
+        container.style.animation = 'fadeIn 0.5s forwards';
+    }
+</script>
+
+</body>
+</html>

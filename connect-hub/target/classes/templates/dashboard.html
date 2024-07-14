@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard - LinkTree Clone</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Admin Dashboard</h1>
+
+    <h2>Site Statistics</h2>
+    <ul>
+        <li>Total Users: <span th:text="${totalUsers}"></span></li>
+        <li>Total Links: <span th:text="${totalLinks}"></span></li>
+        <li>Total Page Views: <span th:text="${totalPageViews}"></span></li>
+        <li>Total Link Clicks: <span th:text="${totalLinkClicks}"></span></li>
+    </ul>
+
+    <h2>User Management</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.email}"></td>
+            <td>
+                <form th:action="@{/admin/users/{id}/delete(id=${user.id})}" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/}">Back to Home</a>
+</div>
+</body>
+</html>

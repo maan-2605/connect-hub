@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detailed Analytics - LinkTree Clone</title>
+    <link rel="stylesheet" th:href="@{/css/detail.css}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Detailed Analytics</h1>
+
+    <h2>Daily Views (Last 30 Days)</h2>
+    <canvas id="dailyViewsChart"></canvas>
+
+    <h2>Views by Country</h2>
+    <canvas id="countryViewsChart"></canvas>
+
+    <a th:href="@{/profile}">Back to Profile</a>
+</div>
+
+<script th:inline="javascript">
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Daily Views Chart
+    var dailyViewsData = /*[[${dailyViews}]]*/ {};
+    var dailyViewsCtx = document.getElementById('dailyViewsChart').getContext('2d');
+    new Chart(dailyViewsCtx, {
+        type: 'line',
+        data: {
+            labels: Object.keys(dailyViewsData),
+            datasets: [{
+                label: 'Daily Views',
+                data: Object.values(dailyViewsData),
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Country Views Chart
+    var countryViewsData = /*[[${viewsByCountry}]]*/ {};
+    var countryViewsCtx = document.getElementById('countryViewsChart').getContext('2d');
+    new Chart(countryViewsCtx, {
+        type: 'pie',
+        data: {
+            labels: Object.keys(countryViewsData),
+            datasets: [{
+                data: Object.values(countryViewsData),
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(153, 102, 255)'
+                ]
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+});
+
+</script>
+</body>
+</html>
